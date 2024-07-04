@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap');
+@import url('http://www.chadsoft.co.uk/css/ctmkf.css');
+
+body {
+	background-color: #624663;
+	color: #f5f9f1;
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 18px;
+}
+a:link, a:visited {
+	color: #cac7fc;
+}
+ul li {
+	margin: 4px 4px 0px 0px;
+}
+
+.altheader {
+	font-size: 22px;
+	padding: 12px;
+}
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 12px;
+	text-align: center;
+	background-color: #422040;
+	font-size: 22px;
+	color: white;
+}
+.header hr {
+	color: #624663;
+	width: 10em;
+}
+.header a:hover { background-color: #602E5D; }
+.header a:active { background-color: #8A4285; }
+.header a {
+	text-align: center;
+	color: white;
+	padding: 12px;
+	text-decoration: none;
+}
+
+#mainlink {
+	font-size: 32px;
+}
+
+#trackdiv, #trackgroup {
+	width: 80vw;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+.flex-container {
+	display: flex;
+	justify-content: center;
+}
+
+table, th, td {
+	border: 2px solid #422040;
+	border-collapse: collapse;
+	padding: 8px;
+}
+
+.ctmkf {
+	font-family: 'CTMKF', 'Noto Sans', sans-serif;
+}
