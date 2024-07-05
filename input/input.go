@@ -23,8 +23,8 @@ type Time struct {
 	Character   common.CharacterID
 	Controller  common.ControllerID
 	AutoDrift   bool
-	CountryCode common.CountryCode // Someone will have to map these out
-	StateCode   uint8              // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	CountryCode common.CountryCode
+	StateCode   uint8 // Someone will have to map these out
 }
 
 // constructor from file
@@ -41,6 +41,8 @@ func (outputTime Time) InitializeFromRKGFile(inputBytes []byte) (Time, error) {
 	outputTime.Character = common.CharacterID(((inputBytes[8] & 0b00000011) << 4) | (inputBytes[9] >> 4))
 	outputTime.Controller = common.ControllerID(inputBytes[0xB] & 0b00001111)
 	outputTime.AutoDrift = (inputBytes[0xB] & 0b00001000) != 0b000000000
+	outputTime.CountryCode = common.CountryCode(inputBytes[0x34])
+	outputTime.StateCode = inputBytes[0x35] // TODO: Map State Codes
 
 	for i := 0; i < 10; i++ {
 		if !isCKGD && i > 5 { // If the file is not a CKGD, further laps will just be junk data
