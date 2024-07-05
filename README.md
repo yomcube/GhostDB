@@ -1,7 +1,7 @@
 # GhostDB
-An Alternative Mario Kart Wii ghost database to CTGP-R's.
-The current scope of the Project is just to get the Database working with a PostgreSQL + Golang stack.
+An alternative Mario Kart Wii ghost database to CTGP-R's.
+Currently, the project aims to provide an API (written in Go) to a PostgreSQL database.
 
-Discord Invite: https://discord.gg/ttBGrTDJfn
-
-Further discussions on the Discord server itself.
+## Discord Invite
+Most of the project's discussion happens within the Discord server.
+https://discord.gg/ttBGrTDJfn
