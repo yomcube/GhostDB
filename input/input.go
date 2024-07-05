@@ -31,7 +31,7 @@ func (outputTime Time) InitializeFromRKGFile(inputBytes []byte) (Time, error) {
 		return outputTime, errors.New("not an RKGD file, missing RKGD headers")
 	}
 
-	// -9 because len()-CRC Checksum (4bytes) - CKGD magic numbers (also 4bytes)
+	// -8 because len()-CRC Checksum (4bytes) - CKGD magic numbers (also 4bytes)
 	isCKGD := [4]byte(inputBytes[len(inputBytes)-8:]) == CKGDMagicNumbers
 
 	outputTime.FinalTime = readTimeFromRKGFormat([3]byte(inputBytes[4:]))
