@@ -26,7 +26,6 @@ type Time struct {
 }
 
 // constructor from file
-// tested on https://www.chadsoft.co.uk/time-trials/rkgd/BE/B0/2FAD030C44088A385FC834AF02A50D7C2BB1.rkg
 func (outputTime Time) InitializeFromRKGFile(inputBytes []byte) (Time, error) {
 	if [4]byte(inputBytes) != RKGDMagicNumbers {
 		return outputTime, errors.New("not an RKGD file, missing RKGD headers")
