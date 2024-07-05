@@ -14,7 +14,7 @@ func TestArjunCTGPGCNBabyPark(t *testing.T) {
 		panic(err)
 	}
 
-	testTime, err := input.Time{}.InitializeFromRKGFile(byteData)
+	testTime, err := input.RKG{}.InitializeFromRKGFile(byteData)
 	if err != nil {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: %v", err)
 		panic(err)
@@ -24,15 +24,15 @@ func TestArjunCTGPGCNBabyPark(t *testing.T) {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: testTime.FinalTime is wrong, value is %d", testTime.FinalTime)
 	}
 
-	if testTime.Vehicle != input.Vehicle(input.MachBike) {
+	if testTime.Vehicle != common.Vehicle(common.MachBike) {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: testTime.Vehicle is wrong, value is %d", testTime.Vehicle)
 	}
 
-	if testTime.Character != input.Character(input.Daisy) {
+	if testTime.Character != common.Character(common.Daisy) {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: testTime.Character is wrong, value is %d", testTime.Character)
 	}
 
-	if testTime.Controller != input.Controller(input.WiiWheel) {
+	if testTime.Controller != common.Controller(common.WiiWheel) {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: testTime.Controller is wrong, value is %d", testTime.Controller)
 	}
 
