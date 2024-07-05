@@ -75,7 +75,7 @@ func readTimeFromRKGFormat(inputBytes [3]byte) int32 {
 	minutes := int32(inputBytes[0]) // The minutes are doubled here because of the extra bit
 
 	// You don't need the first bit, because 59 = 6 bits
-	// Go up 8 lines for the breakdown of why
+	// Go up 7 lines for the breakdown of why
 	seconds := int32(inputBytes[1] >> 2)
 
 	// I don't think these casts might be faster than just doing OR on a int32
