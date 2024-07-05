@@ -4,7 +4,6 @@ import (
 	"os"
 	"testing"
 
-	"github.com/yomcube/GhostDB/common"
 	"github.com/yomcube/GhostDB/input"
 )
 
@@ -15,7 +14,7 @@ func TestArjunCTGPGCNBabyPark(t *testing.T) {
 		panic(err)
 	}
 
-	testTime, err := input.Time{}.InitializeFromRKGFile(byteData)
+	testTime, err := input.RKG{}.InitializeFromRKGFile(byteData)
 	if err != nil {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: %v", err)
 		panic(err)
@@ -25,15 +24,15 @@ func TestArjunCTGPGCNBabyPark(t *testing.T) {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: testTime.FinalTime is wrong, value is %d", testTime.FinalTime)
 	}
 
-	if testTime.Vehicle != common.VehicleID(common.MachBike) {
+	if testTime.Vehicle != common.Vehicle(common.MachBike) {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: testTime.Vehicle is wrong, value is %d", testTime.Vehicle)
 	}
 
-	if testTime.Character != common.CharacterID(common.Daisy) {
+	if testTime.Character != common.Character(common.Daisy) {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: testTime.Character is wrong, value is %d", testTime.Character)
 	}
 
-	if testTime.Controller != common.ControllerID(common.WiiWheel) {
+	if testTime.Controller != common.Controller(common.WiiWheel) {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: testTime.Controller is wrong, value is %d", testTime.Controller)
 	}
 
