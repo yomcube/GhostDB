@@ -9,7 +9,7 @@ import (
 )
 
 func TestArjunCTGPGCNBabyPark(t *testing.T) {
-	byteData, err := os.ReadFile("./test/arjun_ctgp_gcn_baby_park_wr.rkg")
+	byteData, err := os.ReadFile("./test_rkg/arjun_ctgp_gcn_baby_park_wr.rkg")
 	if err != nil {
 		t.Errorf("os.ReadFile() error: %v", err)
 		panic(err)
@@ -37,7 +37,7 @@ func TestArjunCTGPGCNBabyPark(t *testing.T) {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: testTime.Controller is wrong, value is %d", testTime.Controller)
 	}
 
-	if common.CountryCode(testTime.CountryCode) != common.CountryCode(common.USA) {
+	if testTime.CountryCode != common.CountryCode(common.USA) {
 		t.Errorf("test_arjun: testTime.InitializeFromRKGFile() error: testTime.Controller is CountryCode, value is %d", testTime.Controller)
 	}
 

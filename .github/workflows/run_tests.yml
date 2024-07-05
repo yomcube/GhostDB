@@ -25,10 +25,4 @@ jobs:
       - name: Run tests
         run: |
             go version
-            go fmt .
-            cd input
-            go fmt .
-            go test .
-            cd ../common
-            go fmt .
-            cd ..
+            go test ./input
