@@ -186,8 +186,8 @@ const (
 type Controller uint8
 
 const (
-	WiiWheel          = 0
-	Nunchuck          = 1
-	ClassicController = 2
-	GameCube          = 3
+	WiiWheel          Controller = 0
+	Nunchuck          Controller = 1
+	ClassicController Controller = 2
+	GameCube          Controller = 3
 )
