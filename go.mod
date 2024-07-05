@@ -2,6 +2,7 @@ module github.com/yomcube/GhostDB
 
 go 1.22.5
 
+require ./input v1.10.0
 require github.com/gin-gonic/gin v1.10.0
 
 require (
