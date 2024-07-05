@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/yomcube/GhostDB/common
+	"github.com/yomcube/GhostDB/common"
 )
 
 // Can't declare const Array in Golang
