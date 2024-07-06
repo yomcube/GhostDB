@@ -11,13 +11,14 @@ import (
 func TestRKG(t *testing.T) {
 	genericTimeTest(
 		input.Time{
-			FinalTime: 70716,
-			Vehicle: common.MachBike,
-			Character: common.Daisy,
-			Controller: common.WiiWheel,
+			CourseSlot:  common.MarioCircuit,
+			FinalTime:   70716,
+			Vehicle:     common.MachBike,
+			Character:   common.Daisy,
+			Controller:  common.WiiWheel,
 			CountryCode: common.USA,
-			StateCode: 0x16,
-			Laps: [...]int32{10051, 10277, 9786, 9789, 10255, 10285, 10273, 0, 0, 0},
+			StateCode:   0x16,
+			Laps:        [...]int32{10051, 10277, 9786, 9789, 10255, 10285, 10273, 0, 0, 0},
 		},
 		"./test_rkg/arjun_ctgp_gcn_baby_park_wr.rkg",
 		t,
@@ -25,13 +26,14 @@ func TestRKG(t *testing.T) {
 
 	genericTimeTest(
 		input.Time{
-			FinalTime: 85945,
-			Vehicle: common.Jetsetter,
-			Character: common.DryBowser,
-			Controller: common.WiiWheel,
+			CourseSlot:  common.LuigiCircuit,
+			FinalTime:   85945,
+			Vehicle:     common.Jetsetter,
+			Character:   common.DryBowser,
+			Controller:  common.WiiWheel,
 			CountryCode: common.XXX,
-			StateCode: 0xFF,
-			Laps: [...]int32{28645, 28817, 28483, 0, 0, 0, 0, 0, 0, 0},
+			StateCode:   0xFF,
+			Laps:        [...]int32{28645, 28817, 28483, 0, 0, 0, 0, 0, 0, 0},
 		},
 		"./test_rkg/italian_random_lc.rkg",
 		t,
@@ -45,10 +47,14 @@ func genericTimeTest(testTime input.Time, filePath string, t *testing.T) {
 		panic(err)
 	}
 
-	constructedTime, err := input.Time{}.InitializeFromRKGFile(byteData)
+	constructedTime, err := input.InitializeFromRKGFile(byteData)
 	if err != nil {
 		t.Errorf("%v: constructedTime.InitializeFromRKGFile() error: %v", filePath, err)
 		panic(err)
+	}
+
+	if constructedTime.CourseSlot != testTime.CourseSlot {
+		t.Errorf("%v: constructedTime.InitializeFromRKGFile() error: constructedTime.CourseSlot is wrong, value is %d", filePath, constructedTime.FinalTime)
 	}
 
 	if constructedTime.FinalTime != testTime.FinalTime {

@@ -17,6 +17,7 @@ var CKGDMagicNumbers = [...]byte{0x43, 0x4B, 0x47, 0x44}
 // There is no need to decode to an "RKGD" type, it would be pointless.
 // Though this was to be decided yet, so any data here is temporary
 type Time struct {
+	CourseSlot  common.CourseID // This will have, in the future, to be handled for CTs.
 	FinalTime   int32
 	Laps        [10]int32 // max number of laps possible to write on file
 	Vehicle     common.VehicleID
@@ -27,24 +28,26 @@ type Time struct {
 	StateCode   uint8
 }
 
-func (outputTime Time) setStateCode(inputByte uint8) (Time, error) {
+func (outputTime *Time) setStateCode(inputByte uint8) error {
 	if !outputTime.CountryCode.StatecodeValid(inputByte) {
-		return outputTime, errors.New("tried to set invalid state code for time")
-		} else {
+		return errors.New("tried to set invalid state code for time")
+	} else {
 		outputTime.StateCode = inputByte
-		return outputTime, nil
+		return nil
 	}
 }
 
 // constructor from file
-func (outputTime Time) InitializeFromRKGFile(inputBytes []byte) (Time, error) {
+func InitializeFromRKGFile(inputBytes []byte) (Time, error) {
+	outputTime := Time{}
 	if [4]byte(inputBytes) != RKGDMagicNumbers {
 		return outputTime, errors.New("not an RKGD file, missing RKGD headers")
 	}
 
-	ghostType := (inputBytes[0xC] << 7 | inputBytes[0xD] >> 2)
+	ghostType := (inputBytes[0xC]<<7 | inputBytes[0xD]>>2)
 	isCKGD := ghostType == 0x26
 
+	outputTime.CourseSlot = common.CourseID(inputBytes[7] >> 2)
 	outputTime.FinalTime = readTimeFromRKGFormat([3]byte(inputBytes[4:]))
 	outputTime.Vehicle = common.VehicleID(inputBytes[8] >> 2)
 	outputTime.Character = common.CharacterID(((inputBytes[8] & 0b00000011) << 4) | (inputBytes[9] >> 4))
@@ -52,7 +55,7 @@ func (outputTime Time) InitializeFromRKGFile(inputBytes []byte) (Time, error) {
 	outputTime.AutoDrift = (inputBytes[0xB] & 0b00001000) != 0b000000000
 	outputTime.CountryCode = common.CountryCode(inputBytes[0x34])
 
-	outputTime, err := outputTime.setStateCode(inputBytes[0x35])
+	err := outputTime.setStateCode(inputBytes[0x35])
 	if err != nil {
 		return outputTime, err
 	}
