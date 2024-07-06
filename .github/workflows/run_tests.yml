@@ -25,6 +25,4 @@ jobs:
       - name: Run tests
         run: |
             go version
-            cd input
-            go test .
-            cd ..
+            go test ./input
