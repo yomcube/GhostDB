@@ -24,7 +24,16 @@ type Time struct {
 	Controller  common.ControllerID
 	AutoDrift   bool
 	CountryCode common.CountryCode
-	StateCode   uint8 // Someone will have to map these out
+	StateCode   uint8
+}
+
+func (outputTime Time) setStateCode(inputByte uint8) error {
+	if !outputTime.CountryCode.StatecodeValid(inputByte) {
+		return errors.New("tried to set invalid state code for time")
+	} else {
+		outputTime.StateCode = inputByte
+		return nil
+	}
 }
 
 // constructor from file
@@ -42,7 +51,11 @@ func (outputTime Time) InitializeFromRKGFile(inputBytes []byte) (Time, error) {
 	outputTime.Controller = common.ControllerID(inputBytes[0xB] & 0b00001111)
 	outputTime.AutoDrift = (inputBytes[0xB] & 0b00001000) != 0b000000000
 	outputTime.CountryCode = common.CountryCode(inputBytes[0x34])
-	outputTime.StateCode = inputBytes[0x35] // TODO: Map State Codes
+
+	err := outputTime.setStateCode(inputBytes[0x35])
+	if err != nil {
+		return outputTime, err
+	}
 
 	for i := 0; i < 10; i++ {
 		if !isCKGD && i > 5 { // If the file is not a CKGD, further laps will just be junk data

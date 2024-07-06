@@ -516,6 +516,7 @@ const (
 	SYR CountryCode = 175
 	BHR CountryCode = 176
 	JOR CountryCode = 177
+	XXX CountryCode = 0xFF
 )
 
 func (countryCode CountryCode) ToString() (string, error) {
@@ -768,8 +769,96 @@ func (countryCode CountryCode) ToString() (string, error) {
 		return "Bahrain", nil
 	case 177:
 		return "Jordan", nil
+	case 0xFF:
+		return "Unknown Country", nil
 	default:
 		return "", errors.New("Country Code invalid")
+	}
+}
+
+func (countryCode CountryCode) StatecodeValid(v uint8) bool {
+	if v == 0xFF {
+		return true
+	}
+	switch countryCode {
+	case XXX:
+		return v == 0xFF // I'm somewhat sure that 0xFF Country Code is necessarily 0xFF State Code
+	case JPN:
+		return v >= 2 && v <= 48
+	case AIA, ABW, BHS, BRB, VGB, CYM, DMA, GUF, GRD, GLP, MTQ, MSR, ANT, LCA, VCT, TCA, VIR, AZE, MRT, MLI, NER, TCD, SDN, ERI, DJI, SOM, HKG, MAC, SGP, QAT, KWT, BHR, JOR:
+		return v == 1
+	case ATG, CRI, PRT, RUS, ARE:
+		return v >= 2 && v <= 8
+	case ARG:
+		return v >= 2 && v <= 25
+	case BLZ, CYP, FIN:
+		return v >= 2 && v <= 7
+	case BOL, HTI, AUT, BWA, ZAF, ZMB:
+		return v >= 2 && v <= 10
+	case NRA, EGY:
+		return v >= 2 && v <= 28
+	case CAN, CHL, GRC, NAM, NZL, SAU:
+		return v >= 2 && v <= 14
+	case COL, IDN:
+		return v >= 2 && v <= 34
+	case DOM:
+		return v >= 2 && v <= 31
+	case ECU, GTM:
+		return v >= 2 && v <= 23
+	case SLV, JAM, KNA, CZE, SYR:
+		return v >= 2 && v <= 15
+	case GUY, PAN, SUR, LSO, LTU, ZWE:
+		return v >= 2 && v <= 11
+	case HND, PRY, PHL:
+		return v >= 2 && v <= 19
+	case MEX, CHN:
+		return v >= 2 && v <= 33
+	case NIC, DNK, ESP:
+		return v >= 2 && v <= 18
+	case PER, VEN, TWN:
+		return v >= 2 && v <= 26
+	case TTO, ALB, NLD:
+		return v >= 2 && v <= 13
+	case USA:
+		return v >= 2 && v <= 53
+	case URY:
+		return v >= 2 && v <= 20
+	case AUS, ISL, IRL, MKD, SVK, OMN:
+		return v >= 2 && v <= 9
+	case BEL, NIH, LUX, SRB:
+		return v >= 2 && v <= 4
+	case BGR:
+		return v >= 2 && v <= 29
+	case HRV, SWZ:
+		return v >= 2 && v <= 5
+	case EST:
+		return v >= 2 && v <= 16
+	case FRA, LVA:
+		return v >= 2 && v <= 27
+	case DEU, POL, KOR, MYS:
+		return v >= 2 && v <= 17
+	case HUN, ITA:
+		return v >= 2 && v <= 21
+	case LIE, MLT:
+		return v >= 2 && v <= 3
+	case MNE, SWE:
+		return v >= 2 && v <= 22
+	case MOZ:
+		return v >= 2 && v <= 12
+	case NOR, SVN, GBR:
+		return v >= 2 && v <= 6
+	case ROU:
+		return v >= 2 && v <= 43
+	case CHE:
+		return v >= 2 && v <= 24
+	case TUR:
+		return v >= 2 && v <= 50
+	case THA:
+		return v >= 2 && v <= 77
+	case IND:
+		return v >= 2 && v <= 37
+	default:
+		return false
 	}
 }
 
