@@ -44,8 +44,8 @@ func InitializeFromRKGFile(inputBytes []byte) (Time, error) {
 		return outputTime, errors.New("not an RKGD file, missing RKGD headers")
 	}
 
-	ghostType := (inputBytes[0xC]<<7 | inputBytes[0xD]>>2)
-	isCKGD := ghostType == 0x26
+	// -8 because len()-CRC Checksum (4bytes) - CKGD magic numbers (also 4bytes)
+	isCKGD := [4]byte(inputBytes[len(inputBytes)-8:]) == CKGDMagicNumbers
 
 	outputTime.CourseSlot = common.CourseID(inputBytes[7] >> 2)
 	outputTime.FinalTime = readTimeFromRKGFormat([3]byte(inputBytes[4:]))
