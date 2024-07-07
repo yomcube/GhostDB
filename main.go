@@ -4,9 +4,16 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/yomcube/GhostDB/sql"
 )
 
 func main() {
+	cfg, exit_code := sql.SetupConfig()
+	if exit_code == 1 {
+		return
+	}
+	cfg.SetupDatabase()
+
 	ginEngine := gin.Default()
 	ginEngine.GET("/ping", func(request *gin.Context) {
 		request.JSON(http.StatusOK, gin.H{
