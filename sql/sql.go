@@ -134,10 +134,11 @@ func setupMiiTable(db *sql.DB) {
 			facial_hair_size character(1) NOT NULL,
 			facial_hair_vertical character(1) NOT NULL,
 			mole_enable bool NOT NULL,
-			mole_size character(1) NOT NULL
-			mole_vertical character(1) NOT NULL
-			mole_horizontal character(1) NOT NULL
-			creator_name character varying(20) NOT NULL
+			mole_size character(1) NOT NULL,
+			mole_vertical character(1) NOT NULL,
+			mole_horizontal character(1) NOT NULL,
+			creator_name character varying(20) NOT NULL,
+			utf8_display_url character(94) NOT NULL
 		);
 	`)
 
