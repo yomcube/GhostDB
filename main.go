@@ -13,6 +13,7 @@ func main() {
 	if exit_code == 1 {
 		return
 	}
+	cfg.SetupDatabase()
 
 	fmt.Println(cfg)
 
