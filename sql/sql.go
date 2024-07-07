@@ -85,6 +85,67 @@ func setupPlayerTable(db *sql.DB) {
 	}
 }
 
+func setupMiiTable(db *sql.DB) {
+	_, err := db.Query(`
+		CREATE TABLE public.miis (
+			uuid uuid NOT NULL DEFAULT gen_random_uuid (),
+			is_invalid bool NOT NULL DEFAULT false,
+			is_girl bool NOT NULL DEFAULT false,
+			birth_month character(1) NOT NULL,
+			birth_day character(1) NOT NULL,
+			favorite bool NOT NULL DEFAULT false,
+			name character varying(20) NOT NULL
+			body_height character(1) NOT NULL,
+			body_weight character(1) NOT NULL,
+			mii_id INT NOT NULL,
+			console_mac_address INT NOT NULL,
+			face_type character(1) NOT NULL,
+			face_color character(1) NOT NULL,
+			facial_feature character(1) NOT NULL,
+			hair_type character(1) NOT NULL,
+			hair_color character(1) NOT NULL,
+			hair_flip bool NOT NULL DEFAULT false,
+			eyebrow_type character(1) NOT NULL,
+			eyebrow_rotation character(1) NOT NULL,
+			eyebrow_color character(1) NOT NULL,
+			eyebrow_size character(1) NOT NULL,
+			eyebrow_vertical character(1) NOT NULL,
+			eyebrow_horizontal character(1) NOT NULL,
+			eye_type character(1) NOT NULL,
+			eye_rotation character(1) NOT NULL,
+			eye_vertical character(1) NOT NULL,
+			eye_color character(1) NOT NULL,
+			eye_horizontal character(1) NOT NULL,
+			nose_type character(1) NOT NULL,
+			nose_size character(1) NOT NULL,
+			nose_vertical character(1) NOT NULL,
+			unknown_9 character(1) NOT NULL,
+			mouth_type character(1) NOT NULL,
+			mouth_color character(1) NOT NULL,
+			mouth_size character(1) NOT NULL,
+			mouth_vertical character(1) NOT NULL,
+			glasses_type character(1) NOT NULL,
+			glasses_color character(1) NOT NULL,
+			glasses_size character(1) NOT NULL,
+			glasses_vertical character(1) NOT NULL,
+			facial_hair_mustache character(1) NOT NULL,
+			facial_hair_beard character(1) NOT NULL,
+			facial_hair_color character(1) NOT NULL,
+			facial_hair_size character(1) NOT NULL,
+			facial_hair_vertical character(1) NOT NULL,
+			mole_enable bool NOT NULL,
+			mole_size character(1) NOT NULL
+			mole_vertical character(1) NOT NULL
+			mole_horizontal character(1) NOT NULL
+			creator_name character varying(20) NOT NULL
+		);
+	`)
+
+	if err != nil {
+		panic(err)
+	}
+}
+
 func (cfg Config) SetupDatabase() {
 	db, err := sql.Open("postgres", fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable", cfg.user, cfg.secret, cfg.host, cfg.port, cfg.databaseName))
 	defer db.Close()
@@ -95,6 +156,7 @@ func (cfg Config) SetupDatabase() {
 
 	hasTableGhosts := false
 	hasTablePlayers := false
+	hasTableMiis := false
 
 	// Check if the correct tables exist
 	tables, err := db.Query("SELECT table_schema, table_name FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('pg_catalog', 'information_schema');")
@@ -114,6 +176,9 @@ func (cfg Config) SetupDatabase() {
 		if *row.table_name == "players" && *row.table_schema == "public" {
 			hasTablePlayers = true
 		}
+		if *row.table_name == "miis" && *row.table_schema == "public" {
+			hasTableMiis = true
+		}
 	}
 
 	// Create Tables that don't exist yet.
@@ -125,4 +190,7 @@ func (cfg Config) SetupDatabase() {
 		setupPlayerTable(db)
 	}
 
+	if !hasTableMiis {
+		setupMiiTable(db)
+	}
 }
