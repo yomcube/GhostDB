@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,8 +13,6 @@ func main() {
 		return
 	}
 	cfg.SetupDatabase()
-
-	fmt.Println(cfg)
 
 	ginEngine := gin.Default()
 	ginEngine.GET("/ping", func(request *gin.Context) {
