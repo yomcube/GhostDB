@@ -1,6 +1,6 @@
 // A lot from this package will have to be moved to reorganize, eventually.
 // this was to throw some stuff together.
-package input
+package rkg_input
 
 import (
 	"errors"

@@ -1,16 +1,16 @@
-package input_test
+package rkg_input_test
 
 import (
 	"os"
 	"testing"
 
 	"github.com/yomcube/GhostDB/common"
-	"github.com/yomcube/GhostDB/input"
+	"github.com/yomcube/GhostDB/rkg_input"
 )
 
 func TestRKG(t *testing.T) {
 	genericTimeTest(
-		input.Time{
+		rkg_input.Time{
 			CourseSlot:  common.MarioCircuit,
 			FinalTime:   70716,
 			Vehicle:     common.MachBike,
@@ -25,7 +25,7 @@ func TestRKG(t *testing.T) {
 	)
 
 	genericTimeTest(
-		input.Time{
+		rkg_input.Time{
 			CourseSlot:  common.LuigiCircuit,
 			FinalTime:   85945,
 			Vehicle:     common.Jetsetter,
@@ -40,14 +40,14 @@ func TestRKG(t *testing.T) {
 	)
 }
 
-func genericTimeTest(testTime input.Time, filePath string, t *testing.T) {
+func genericTimeTest(testTime rkg_input.Time, filePath string, t *testing.T) {
 	byteData, err := os.ReadFile(filePath)
 	if err != nil {
 		t.Errorf("os.ReadFile() error: %v", err)
 		panic(err)
 	}
 
-	constructedTime, err := input.InitializeFromRKGFile(byteData)
+	constructedTime, err := rkg_input.InitializeFromRKGFile(byteData)
 	if err != nil {
 		t.Errorf("%v: constructedTime.InitializeFromRKGFile() error: %v", filePath, err)
 		panic(err)
