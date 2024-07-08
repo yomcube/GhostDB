@@ -68,6 +68,23 @@ func setupGhostIndexTable(db *sql.DB) {
 	// Code to create table here, structs haven't been completely decided
 }
 
+func setupPlayerTable(db *sql.DB) {
+	_, err := db.Query(`
+		CREATE TABLE public.players (
+			uuid uuid NOT NULL DEFAULT gen_random_uuid (),
+			player_name character varying(30) NOT NULL,
+			mii_ids_array uuid[] NOT NULL,
+			"regionID" character(1) NOT NULL DEFAULT 255,
+			"provinceID" character(1) NOT NULL DEFAULT 255,
+			last_modified timestamp without time zone NOT NULL
+		);
+	`)
+
+	if err != nil {
+		panic(err)
+	}
+}
+
 func (cfg Config) SetupDatabase() {
 	db, err := sql.Open("postgres", fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable", cfg.user, cfg.secret, cfg.host, cfg.port, cfg.databaseName))
 	defer db.Close()
@@ -77,6 +94,7 @@ func (cfg Config) SetupDatabase() {
 	}
 
 	hasTableGhosts := false
+	hasTablePlayers := false
 
 	// Check if the correct tables exist
 	tables, err := db.Query("SELECT table_schema, table_name FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('pg_catalog', 'information_schema');")
@@ -93,10 +111,18 @@ func (cfg Config) SetupDatabase() {
 		if *row.table_name == "ghost_data" && *row.table_schema == "public" {
 			hasTableGhosts = true
 		}
+		if *row.table_name == "players" && *row.table_schema == "public" {
+			hasTablePlayers = true
+		}
 	}
 
-	// Create Ghosts index table if it doesn't exist.
+	// Create Tables that don't exist yet.
 	if !hasTableGhosts {
 		setupGhostIndexTable(db)
 	}
+
+	if !hasTablePlayers {
+		setupPlayerTable(db)
+	}
+
 }
