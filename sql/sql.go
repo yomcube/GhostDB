@@ -93,7 +93,8 @@ func setupMiiTable(db *sql.DB) {
 			is_girl bool NOT NULL DEFAULT false,
 			birth_month character(1) NOT NULL,
 			birth_day character(1) NOT NULL,
-			favorite bool NOT NULL DEFAULT false,
+			favorite_color character(1) NOT NULL,
+			is_favorite bool NOT NULL DEFAULT false,
 			name character varying(20) NOT NULL
 			body_height character(1) NOT NULL,
 			body_weight character(1) NOT NULL,

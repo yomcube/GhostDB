@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/yomcube/GhostDB/common"
-	"github.com/yomcube/GhostDB/rkg_input"
+	"github.com/yomcube/GhostDB/input/rkg_input"
 )
 
 func TestRKG(t *testing.T) {
