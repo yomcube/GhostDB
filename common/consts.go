@@ -6,38 +6,38 @@ import "errors"
 type CourseID byte
 
 const (
-	MarioCircuit        CourseID = 0x00
-	MooMooMeadows       CourseID = 0x01
-	MushroomGorge       CourseID = 0x02
-	GrumbleVolcano      CourseID = 0x03
-	ToadsFactory        CourseID = 0x04
-	CoconutMall         CourseID = 0x05
-	DKsSnowboardCross   CourseID = 0x06
-	WariosGoldMine      CourseID = 0x07
-	LuigiCircuit        CourseID = 0x08
-	DaisyCircuit        CourseID = 0x09
-	MoonviewHighway     CourseID = 0x0A
-	MapleTreeway        CourseID = 0x0B
-	BowsersCastle       CourseID = 0x0C
-	RainbowRoad         CourseID = 0x0D
-	DryDryRuins         CourseID = 0x0E
-	KoopaCape           CourseID = 0x0F
-	GCNPeachBeach       CourseID = 0x10
-	GCNMarioCircuit     CourseID = 0x11
-	GCNWaluigiStadium   CourseID = 0x12
-	GCNDKMountain       CourseID = 0x13
-	DSYoshiFalls        CourseID = 0x14
-	DSDesertHills       CourseID = 0x15
-	DSPeachGardens      CourseID = 0x16
-	DSDelfinoSquare     CourseID = 0x17
-	SNESMarioCircuit3   CourseID = 0x18
-	SNESGhostValley2    CourseID = 0x19
-	N64MarioRaceway     CourseID = 0x1A
-	N64SherbetLand      CourseID = 0x1B
-	N64BowsersCastle    CourseID = 0x1C
-	N64DKsJungleParkway CourseID = 0x1D
-	GBABowserCastle3    CourseID = 0x1E
-	GBAShyGuyBeach      CourseID = 0x1F
+	MarioCircuit CourseID = iota
+	MooMooMeadows
+	MushroomGorge
+	GrumbleVolcano
+	ToadsFactory
+	CoconutMall
+	DKsSnowboardCross
+	WariosGoldMine
+	LuigiCircuit
+	DaisyCircuit
+	MoonviewHighway
+	MapleTreeway
+	BowsersCastle
+	RainbowRoad
+	DryDryRuins
+	KoopaCape
+	GCNPeachBeach
+	GCNMarioCircuit
+	GCNWaluigiStadium
+	GCNDKMountain
+	DSYoshiFalls
+	DSDesertHills
+	DSPeachGardens
+	DSDelfinoSquare
+	SNESMarioCircuit3
+	SNESGhostValley2
+	N64MarioRaceway
+	N64SherbetLand
+	N64BowsersCastle
+	N64DKsJungleParkway
+	GBABowserCastle3
+	GBAShyGuyBeach
 )
 
 func (course CourseID) ToString() (string, error) {
@@ -114,54 +114,54 @@ func (course CourseID) ToString() (string, error) {
 type CharacterID byte
 
 const (
-	Mario            CharacterID = 0x00
-	BabyPeach        CharacterID = 0x01
-	Waluigi          CharacterID = 0x02
-	Bowser           CharacterID = 0x03
-	BabyDaisy        CharacterID = 0x04
-	DryBones         CharacterID = 0x05
-	BabyMario        CharacterID = 0x06
-	Luigi            CharacterID = 0x07
-	Toad             CharacterID = 0x08
-	DonkeyKong       CharacterID = 0x09
-	Yoshi            CharacterID = 0x0A
-	Wario            CharacterID = 0x0B
-	BabyLuigi        CharacterID = 0x0C
-	Toadette         CharacterID = 0x0D
-	Koopa            CharacterID = 0x0E
-	Daisy            CharacterID = 0x0F
-	Peach            CharacterID = 0x10
-	Birdo            CharacterID = 0x11
-	DiddyKong        CharacterID = 0x12
-	KingBoo          CharacterID = 0x13
-	BowserJr         CharacterID = 0x14
-	DryBowser        CharacterID = 0x15
-	FunkyKong        CharacterID = 0x16
-	Rosalina         CharacterID = 0x17
-	MiiAMaleSmall    CharacterID = 0x18
-	MiiAFemaleSmall  CharacterID = 0x19
-	MiiBMaleSmall    CharacterID = 0x1A
-	MiiBFemaleSmall  CharacterID = 0x1B
-	MiiCMaleSmall    CharacterID = 0x1C
-	MiiCFemaleSmall  CharacterID = 0x1D
-	MiiAMaleMedium   CharacterID = 0x1E
-	MiiAFemaleMedium CharacterID = 0x1F
-	MiiBMaleMedium   CharacterID = 0x20
-	MiiBFemaleMedium CharacterID = 0x21
-	MiiCMaleMedium   CharacterID = 0x22
-	MiiCFemaleMedium CharacterID = 0x23
-	MiiAMaleHeavy    CharacterID = 0x24
-	MiiAFemaleHeavy  CharacterID = 0x25
-	MiiBMaleHeavy    CharacterID = 0x26
-	MiiBFemaleHeavy  CharacterID = 0x27
-	MiiCMaleHeavy    CharacterID = 0x28
-	MiiCFemaleHeavy  CharacterID = 0x29
-	MediumMii        CharacterID = 0x2A
-	SmallMii         CharacterID = 0x2B
-	LargeMii         CharacterID = 0x2C
-	BikerPeach       CharacterID = 0x2D
-	BikerDaisy       CharacterID = 0x2E
-	BikerRosalina    CharacterID = 0x2F
+	Mario CharacterID = iota
+	BabyPeach
+	Waluigi
+	Bowser
+	BabyDaisy
+	DryBones
+	BabyMario
+	Luigi
+	Toad
+	DonkeyKong
+	Yoshi
+	Wario
+	BabyLuigi
+	Toadette
+	Koopa
+	Daisy
+	Peach
+	Birdo
+	DiddyKong
+	KingBoo
+	BowserJr
+	DryBowser
+	FunkyKong
+	Rosalina
+	MiiAMaleSmall
+	MiiAFemaleSmall
+	MiiBMaleSmall
+	MiiBFemaleSmall
+	MiiCMaleSmall
+	MiiCFemaleSmall
+	MiiAMaleMedium
+	MiiAFemaleMedium
+	MiiBMaleMedium
+	MiiBFemaleMedium
+	MiiCMaleMedium
+	MiiCFemaleMedium
+	MiiAMaleHeavy
+	MiiAFemaleHeavy
+	MiiBMaleHeavy
+	MiiBFemaleHeavy
+	MiiCMaleHeavy
+	MiiCFemaleHeavy
+	MediumMii
+	SmallMii
+	LargeMii
+	BikerPeach
+	BikerDaisy
+	BikerRosalina
 )
 
 func (character CharacterID) ToString() (string, error) {
@@ -270,42 +270,42 @@ func (character CharacterID) ToString() (string, error) {
 type VehicleID byte
 
 const (
-	StandardKartS   VehicleID = 0
-	StandardKartM   VehicleID = 1
-	StandardKartL   VehicleID = 2
-	BoosterSeat     VehicleID = 3
-	ClassicDragster VehicleID = 4
-	Offroader       VehicleID = 5
-	MiniBeast       VehicleID = 6
-	WildWing        VehicleID = 7
-	FlameFlyer      VehicleID = 8
-	CheepCharger    VehicleID = 9
-	SuperBlooper    VehicleID = 10
-	PiranhaProwler  VehicleID = 11
-	TinyTitan       VehicleID = 12
-	Daytripper      VehicleID = 13
-	Jetsetter       VehicleID = 14
-	BlueFalcon      VehicleID = 15
-	Sprinter        VehicleID = 16
-	Honeycoupe      VehicleID = 17
-	StandardBikeS   VehicleID = 18
-	StandardBikeM   VehicleID = 19
-	StandardBikeL   VehicleID = 20
-	BulletBike      VehicleID = 21
-	MachBike        VehicleID = 22
-	FlameRunner     VehicleID = 23
-	BitBike         VehicleID = 24
-	Sugarscoot      VehicleID = 25
-	WarioBike       VehicleID = 26
-	Quacker         VehicleID = 27
-	ZipZip          VehicleID = 28
-	ShootingStar    VehicleID = 29
-	Magikruiser     VehicleID = 30
-	Sneakster       VehicleID = 31
-	Spear           VehicleID = 32
-	JetBubble       VehicleID = 33
-	DolphinDasher   VehicleID = 34
-	Phantom         VehicleID = 35
+	StandardKartS VehicleID = iota
+	StandardKartM
+	StandardKartL
+	BoosterSeat
+	ClassicDragster
+	Offroader
+	MiniBeast
+	WildWing
+	FlameFlyer
+	CheepCharger
+	SuperBlooper
+	PiranhaProwler
+	TinyTitan
+	Daytripper
+	Jetsetter
+	BlueFalcon
+	Sprinter
+	Honeycoupe
+	StandardBikeS
+	StandardBikeM
+	StandardBikeL
+	BulletBike
+	MachBike
+	FlameRunner
+	BitBike
+	Sugarscoot
+	WarioBike
+	Quacker
+	ZipZip
+	ShootingStar
+	Magikruiser
+	Sneakster
+	Spear
+	JetBubble
+	DolphinDasher
+	Phantom
 )
 
 func (vehicle VehicleID) ToString() (string, error) {
@@ -865,10 +865,10 @@ func (countryCode CountryCode) StatecodeValid(v uint8) bool {
 type ControllerID byte
 
 const (
-	WiiWheel          ControllerID = 0
-	Nunchuck          ControllerID = 1
-	ClassicController ControllerID = 2
-	GameCube          ControllerID = 3
+	WiiWheel ControllerID = iota
+	Nunchuck
+	ClassicController
+	GameCube
 )
 
 func (controller ControllerID) ToString() (string, error) {
