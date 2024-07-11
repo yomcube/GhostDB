@@ -95,10 +95,11 @@ func setupMiiTable(db *sql.DB) {
 			birth_day character(1) NOT NULL,
 			favorite_color character(1) NOT NULL,
 			is_favorite bool NOT NULL DEFAULT false,
-			name character varying(20) NOT NULL
+			mii_name character varying(20) NOT NULL,
 			body_height character(1) NOT NULL,
 			body_weight character(1) NOT NULL,
 			mii_id INT NOT NULL,
+			creation_timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
 			console_mac_address INT NOT NULL,
 			face_type character(1) NOT NULL,
 			face_color character(1) NOT NULL,
