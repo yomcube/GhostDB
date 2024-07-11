@@ -120,7 +120,6 @@ func setupMiiTable(db *sql.DB) {
 			nose_type character(1) NOT NULL,
 			nose_size character(1) NOT NULL,
 			nose_vertical character(1) NOT NULL,
-			unknown_9 character(1) NOT NULL,
 			mouth_type character(1) NOT NULL,
 			mouth_color character(1) NOT NULL,
 			mouth_size character(1) NOT NULL,
