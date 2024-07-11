@@ -54,7 +54,7 @@ func genericTimeTest(testTime rkg_input.Time, filePath string, t *testing.T) {
 	}
 
 	if constructedTime.CourseSlot != testTime.CourseSlot {
-		t.Errorf("%v: constructedTime.InitializeFromRKGFile() error: constructedTime.CourseSlot is wrong, value is %d", filePath, constructedTime.FinalTime)
+		t.Errorf("%v: constructedTime.InitializeFromRKGFile() error: constructedTime.CourseSlot is wrong, value is %d", filePath, constructedTime.CourseSlot)
 	}
 
 	if constructedTime.FinalTime != testTime.FinalTime {
