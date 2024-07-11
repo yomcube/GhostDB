@@ -100,7 +100,7 @@ func setupMiiTable(db *sql.DB) {
 			body_weight character(1) NOT NULL,
 			mii_id INT NOT NULL,
 			creation_timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-			console_mac_address INT NOT NULL,
+			console_id INT NOT NULL,
 			face_type character(1) NOT NULL,
 			face_color character(1) NOT NULL,
 			facial_feature character(1) NOT NULL,
