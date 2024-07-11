@@ -25,4 +25,5 @@ jobs:
       - name: Run tests
         run: |
             go version
-            go test ./input
+            go test ./input/rkg_input
+            go test ./input/mii_input
