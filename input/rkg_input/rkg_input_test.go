@@ -38,6 +38,21 @@ func TestRKG(t *testing.T) {
 		"./test_rkg/italian_random_lc.rkg",
 		t,
 	)
+
+	genericTimeTest(
+		rkg_input.Time{
+			CourseSlot:  common.GBAShyGuyBeach,
+			FinalTime:   125309,
+			Vehicle:     common.MachBike,
+			Character:   common.Daisy,
+			Controller:  common.GameCube,
+			CountryCode: common.XXX,
+			StateCode:   0xFF,
+			Laps:        [...]int32{41989, 41594, 41726, 0, 0, 0, 0, 0, 0, 0},
+		},
+		"./test_rkg/falb_ct.rkg",
+		t,
+	)
 }
 
 func genericTimeTest(testTime rkg_input.Time, filePath string, t *testing.T) {
