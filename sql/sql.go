@@ -74,8 +74,8 @@ func setupPlayerTable(db *sql.DB) {
 			uuid uuid NOT NULL DEFAULT gen_random_uuid (),
 			player_name character varying(30) NOT NULL,
 			mii_ids_array uuid[] NOT NULL,
-			"regionID" character(1) NOT NULL DEFAULT 255,
-			"provinceID" character(1) NOT NULL DEFAULT 255,
+			region_id character(1) NOT NULL DEFAULT 255,
+			province_id character(1) NOT NULL DEFAULT 255,
 			last_modified timestamp without time zone NOT NULL
 		);
 	`)
@@ -89,15 +89,14 @@ func setupMiiTable(db *sql.DB) {
 	_, err := db.Query(`
 		CREATE TABLE public.miis (
 			uuid uuid NOT NULL DEFAULT gen_random_uuid (),
-			is_invalid bool NOT NULL DEFAULT false,
-			is_girl bool NOT NULL DEFAULT false,
+			is_girl bool NOT NULL,
 			birth_month character(1) NOT NULL,
 			birth_day character(1) NOT NULL,
 			favorite_color character(1) NOT NULL,
-			is_favorite bool NOT NULL DEFAULT false,
+			is_favorite bool NOT NULL,
 			mii_name character varying(20) NOT NULL,
-			body_height character(1) NOT NULL,
-			body_weight character(1) NOT NULL,
+			height character(1) NOT NULL,
+			weight character(1) NOT NULL,
 			mii_id INT NOT NULL,
 			creation_timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
 			console_id INT NOT NULL,
@@ -139,7 +138,7 @@ func setupMiiTable(db *sql.DB) {
 			mole_vertical character(1) NOT NULL,
 			mole_horizontal character(1) NOT NULL,
 			creator_name character varying(20) NOT NULL,
-			utf8_display_url character(94) NOT NULL
+			render_str character(94) NOT NULL
 		);
 	`)
 

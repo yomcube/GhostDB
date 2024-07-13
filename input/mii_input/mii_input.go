@@ -23,7 +23,7 @@ type Mii struct { // 						Index	Len	Info
 	IsFavorite           bool            //	0x01.7	0.1
 	MiiName              string          //	0x02	20	utf-16be encoded null-terminated-ish string with max 10 char.
 	Height               uint8           //	0x16.1	0.7
-	Width                uint8           //	0x17.1	0.7
+	Weight               uint8           //	0x17.1	0.7
 	MiiID                uint32          //	0x18	4
 	MiiCreationTimestamp time.Time       //	0x18.4	3.4
 	ConsoleID            uint32          //	0x1C	4	the last three bytes are the last three bytes of the mac address, first byte is a checksum
@@ -144,8 +144,8 @@ func (mii *Mii) SetHeight(height byte) {
 	mii.Height = max7bits(height)
 }
 
-func (mii *Mii) SetWidth(width byte) {
-	mii.Width = max7bits(width)
+func (mii *Mii) SetWeight(weight byte) {
+	mii.Weight = max7bits(weight)
 }
 
 func (mii *Mii) SetSkinTone(skinTone byte) error {
@@ -463,7 +463,7 @@ func (mii *Mii) GenerateMiiStudioRenderString() string {
 	var miiStudioMii = [...]byte{
 		tmpFacialHairColor,
 		mii.FacialHairBeard,
-		mii.Width,
+		mii.Weight,
 		3,
 		mii.EyeColor + 8,
 		mii.EyeRotation,
@@ -540,7 +540,7 @@ func InitializeFromMiigx(inputBytes []byte) (Mii, error) {
 	}
 
 	outMii.SetHeight(inputBytes[0x16])
-	outMii.SetWidth(inputBytes[0x17])
+	outMii.SetWeight(inputBytes[0x17])
 	outMii.MiiID = uint32(inputBytes[0x18])<<24 | uint32(inputBytes[0x19])<<16 | uint32(inputBytes[0x1A])<<8 | uint32(inputBytes[0x1B])
 	outMii.MiiCreationTimestamp = time.Unix(1136073600+int64((outMii.MiiID<<4)>>2), 0)
 	outMii.ConsoleID = uint32(inputBytes[0x1C])<<24 | uint32(inputBytes[0x1D])<<16 | uint32(inputBytes[0x1E])<<8 | uint32(inputBytes[0x1F])
