@@ -367,6 +367,159 @@ func (mii *Mii) SetMoleHorizontal(moleHorizontal byte) error {
 	return nil
 }
 
+func (mii *Mii) GenerateMiiStudioRenderString() string {
+	var tmpFacialHairColor byte
+	if mii.FacialHairColor == 0 {
+		tmpFacialHairColor = 8
+	} else {
+		tmpFacialHairColor = mii.FacialHairColor
+	}
+
+	var tmpEyebrowColor byte
+	if mii.EyebrowColor == 0 {
+		tmpEyebrowColor = 8
+	} else {
+		tmpEyebrowColor = mii.EyebrowColor
+	}
+
+	var tmpMakeup byte
+	switch mii.FaceFeatures {
+	case 1:
+		tmpMakeup = 1
+	case 2:
+		tmpMakeup = 6
+	case 3:
+		tmpMakeup = 9
+	case 9:
+		tmpMakeup = 10
+	default:
+		tmpMakeup = 0
+	}
+
+	var tmpWrinkles byte
+	switch mii.FaceFeatures {
+	case 4:
+		tmpWrinkles = 5
+	case 5:
+		tmpWrinkles = 2
+	case 6:
+		tmpWrinkles = 3
+	case 7:
+		tmpWrinkles = 7
+	case 8:
+		tmpWrinkles = 8
+	case 10:
+		tmpWrinkles = 9
+	case 11:
+		tmpWrinkles = 11
+	default:
+		tmpWrinkles = 0
+	}
+
+	var tmpIsFemale byte
+	if mii.IsFemale {
+		tmpIsFemale = 1
+	} else {
+		tmpIsFemale = 0
+	}
+
+	var tmpGlassesColor byte
+	if mii.GlassesColor == 0 {
+		tmpGlassesColor = 8
+	} else if mii.GlassesColor < 6 {
+		tmpGlassesColor = mii.GlassesColor + 13
+	} else {
+		tmpGlassesColor = 0
+	}
+
+	var tmpHairColor byte
+	if mii.HairColor == 0 {
+		tmpHairColor = 8
+	} else {
+		tmpHairColor = mii.HairColor
+	}
+
+	var tmpHairFlip byte
+	if mii.HairFlip {
+		tmpHairFlip = 1
+	} else {
+		tmpHairFlip = 0
+	}
+
+	var tmpMoleType byte
+	if mii.MoleType {
+		tmpMoleType = 1
+	} else {
+		tmpMoleType = 0
+	}
+
+	var tmpMouthColor byte
+	if mii.MouthColor < 4 {
+		tmpMouthColor = mii.MouthColor + 19
+	} else {
+		tmpMouthColor = 0
+	}
+
+	var miiStudioMii = [...]byte{
+		tmpFacialHairColor,
+		mii.FacialHairBeard,
+		mii.Width,
+		3,
+		mii.EyeColor + 8,
+		mii.EyeRotation,
+		mii.EyeSize,
+		mii.EyeType,
+		mii.EyeHorizontal,
+		mii.EyeVertical,
+		3,
+		tmpEyebrowColor,
+		mii.EyebrowRotation,
+		mii.EyebrowSize,
+		mii.EyebrowType,
+		mii.EyebrowHorizontal,
+		mii.EyebrowVertical,
+		mii.SkinTone,
+		tmpMakeup,
+		mii.FaceType,
+		tmpWrinkles,
+		byte(mii.FavoriteColor),
+		tmpIsFemale,
+		tmpGlassesColor,
+		mii.GlassesSize,
+		mii.GlassesType,
+		mii.GlassesVertical,
+		tmpHairColor,
+		tmpHairFlip,
+		mii.HairType,
+		mii.Height,
+		mii.MoleSize,
+		tmpMoleType,
+		mii.MoleHorizontal,
+		mii.MoleVertical,
+		3,
+		tmpMouthColor,
+		mii.MouthSize,
+		mii.MouthType,
+		mii.MouthVertical,
+		mii.FacialHairSize,
+		mii.FacialHairMustache,
+		mii.FacialHairVertical,
+		mii.NoseSize,
+		mii.NoseType,
+		mii.NoseVertical,
+	}
+
+	outString := "00"
+	n := 256
+	for _, value := range miiStudioMii {
+		eo := (7 + (int(value) ^ n)) % 256
+		n = eo
+		outString += fmt.Sprintf("%02x", n)
+	}
+
+	return outString
+}
+
 func InitializeFromMiigx(inputBytes []byte) (Mii, error) {
 	outMii := Mii{}
 
