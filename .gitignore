@@ -1,3 +1,8 @@
-GhostDB
+# IDE stuff
 .vscode
+.zed
+
+# build folder
+build
 sql.cfg
+GhostDB

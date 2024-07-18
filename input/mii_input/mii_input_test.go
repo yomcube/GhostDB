@@ -18,7 +18,7 @@ func TestMain(t *testing.T) {
 			IsFavorite:           false,
 			MiiName:              "no name",
 			Height:               64,
-			Width:                64,
+			Weight:               64,
 			MiiID:                0x80000000,
 			MiiCreationTimestamp: time.Unix(1136073600, 0),
 			ConsoleID:            0xECFF82D2,
@@ -76,7 +76,7 @@ func TestMain(t *testing.T) {
 			IsFavorite:           false,
 			MiiName:              "no name",
 			Height:               64,
-			Width:                64,
+			Weight:               64,
 			MiiID:                0x80000001,
 			MiiCreationTimestamp: time.Unix(1136073604, 0),
 			ConsoleID:            0xECFF82D2,
@@ -134,7 +134,7 @@ func TestMain(t *testing.T) {
 			IsFavorite:           false,
 			MiiName:              "no name",
 			Height:               64,
-			Width:                64,
+			Weight:               64,
 			MiiID:                0x80000002,
 			MiiCreationTimestamp: time.Unix(1136073608, 0),
 			ConsoleID:            0xECFF82D2,
@@ -192,7 +192,7 @@ func TestMain(t *testing.T) {
 			IsFavorite:           false,
 			MiiName:              "no name",
 			Height:               64,
-			Width:                64,
+			Weight:               64,
 			MiiID:                0x80000003,
 			MiiCreationTimestamp: time.Unix(1136073612, 0),
 			ConsoleID:            0xECFF82D2,
@@ -250,7 +250,7 @@ func TestMain(t *testing.T) {
 			IsFavorite:           false,
 			MiiName:              "no name",
 			Height:               64,
-			Width:                64,
+			Weight:               64,
 			MiiID:                0x80000004,
 			MiiCreationTimestamp: time.Unix(1136073616, 0),
 			ConsoleID:            0xECFF82D2,
@@ -308,7 +308,7 @@ func TestMain(t *testing.T) {
 			IsFavorite:           false,
 			MiiName:              "no name",
 			Height:               64,
-			Width:                64,
+			Weight:               64,
 			MiiID:                0x80000005,
 			MiiCreationTimestamp: time.Unix(1136073620, 0),
 			ConsoleID:            0xECFF82D2,
@@ -366,7 +366,7 @@ func TestMain(t *testing.T) {
 			IsFavorite:           true,
 			MiiName:              "sy FαlB",
 			Height:               104,
-			Width:                66,
+			Weight:               66,
 			MiiID:                0x86198DBA,
 			MiiCreationTimestamp: time.Unix(1545425512, 0),
 			ConsoleID:            0x6A24E862,
@@ -443,7 +443,7 @@ func genericMiiTestFromRKG(testMii mii_input.Mii, filePath string, t *testing.T)
 	compareTwoValues(constructedMii.IsFavorite, testMii.IsFavorite, filePath, "IsFavorite", t)
 	compareTwoValues(constructedMii.MiiName, testMii.MiiName, filePath, "MiiName", t)
 	compareTwoValues(constructedMii.Height, testMii.Height, filePath, "Height", t)
-	compareTwoValues(constructedMii.Width, testMii.Width, filePath, "Width", t)
+	compareTwoValues(constructedMii.Weight, testMii.Weight, filePath, "Weight", t)
 	compareTwoValues(constructedMii.MiiID, testMii.MiiID, filePath, "MiiID", t)
 	compareTwoValues(constructedMii.MiiCreationTimestamp, testMii.MiiCreationTimestamp, filePath, "MiiCreationTimestamp", t)
 	compareTwoValues(constructedMii.ConsoleID, testMii.ConsoleID, filePath, "ConsoleID", t)
@@ -509,7 +509,7 @@ func genericMiiTest(testMii mii_input.Mii, filePath string, t *testing.T) {
 	compareTwoValues(constructedMii.IsFavorite, testMii.IsFavorite, filePath, "IsFavorite", t)
 	compareTwoValues(constructedMii.MiiName, testMii.MiiName, filePath, "MiiName", t)
 	compareTwoValues(constructedMii.Height, testMii.Height, filePath, "Height", t)
-	compareTwoValues(constructedMii.Width, testMii.Width, filePath, "Width", t)
+	compareTwoValues(constructedMii.Weight, testMii.Weight, filePath, "Weight", t)
 	compareTwoValues(constructedMii.MiiID, testMii.MiiID, filePath, "MiiID", t)
 	compareTwoValues(constructedMii.MiiCreationTimestamp, testMii.MiiCreationTimestamp, filePath, "MiiCreationTimestamp", t)
 	compareTwoValues(constructedMii.ConsoleID, testMii.ConsoleID, filePath, "ConsoleID", t)
