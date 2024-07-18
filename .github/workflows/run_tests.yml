@@ -14,7 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
+        if: github.event_name == 'push'
         uses: actions/checkout@v4
+      - name: Checkout (PR)
+        if: github.event_name == 'pull_request_target'
+        uses: actions/checkout@v4
+        with:
+          ref: "refs/pull/${{ github.event.number }}/merge"
 
       - name: Setup Go environment
         uses: actions/setup-go@v5.0.1
