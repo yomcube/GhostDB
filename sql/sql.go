@@ -1,6 +1,8 @@
 package sql
 
 import (
+	"github.com/yomcube/GhostDB/utils"
+
 	"database/sql"
 	"errors"
 	"fmt"
@@ -28,9 +30,7 @@ const PATH_TO_CFG_FILE = "./sql.cfg"
 func writeDefaultConf(cfgFile *os.File) {
 	def_string := "# Postgres user\npostgres\n# Client secret\npassword\n# Preferred database name\nghostdb\n# Preferred Postgres Host\nlocalhost\n# Postgres Client port\n5432"
 	n, err := cfgFile.WriteString(def_string)
-	if n != 0 && err != nil {
-		panic(err)
-	}
+	utils.ErrPanicB(err, n != 0)
 }
 
 func SetupConfig() (Config, int) {
@@ -40,18 +40,14 @@ func SetupConfig() (Config, int) {
 	if _, err := os.Stat(PATH_TO_CFG_FILE); errors.Is(err, os.ErrNotExist) {
 		// If the file doesn't exist, write the default config to it.
 		cfgFile, err := os.Create(PATH_TO_CFG_FILE)
-		if err != nil {
-			panic(err)
-		}
+		utils.ErrPanic(err)
 		writeDefaultConf(cfgFile)
 		// Then close the program
 		return Config{}, 1
 	}
 
 	buf, err := os.ReadFile(PATH_TO_CFG_FILE)
-	if err != nil {
-		panic(err)
-	}
+	utils.ErrPanic(err)
 	stringBuf := string(buf)
 
 	split := strings.Split(stringBuf, "\n")
@@ -81,9 +77,7 @@ func setupPlayerTable(db *sql.DB) {
 		);
 	`)
 
-	if err != nil {
-		panic(err)
-	}
+	utils.ErrPanic(err)
 }
 
 func setupMiiTable(db *sql.DB) {
@@ -143,18 +137,15 @@ func setupMiiTable(db *sql.DB) {
 		);
 	`)
 
-	if err != nil {
-		panic(err)
-	}
+	utils.ErrPanic(err)
 }
 
 func (cfg Config) SetupDatabase() {
 	db, err := sql.Open("postgres", fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable", cfg.user, cfg.secret, cfg.host, cfg.port, cfg.databaseName))
 	defer db.Close()
 
-	if err = db.Ping(); err != nil {
-		panic(err)
-	}
+	err = db.Ping()
+	utils.ErrPanic(err)
 
 	hasTableGhosts := false
 	hasTablePlayers := false
@@ -162,15 +153,13 @@ func (cfg Config) SetupDatabase() {
 
 	// Check if the correct tables exist
 	tables, err := db.Query("SELECT table_schema, table_name FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('pg_catalog', 'information_schema');")
-	if err = db.Ping(); err != nil {
-		panic(err)
-	}
+	err = db.Ping()
+	utils.ErrPanic(err)
+
 	for tables.Next() {
 		row := tables_data{}
 		err := tables.Scan(&row.table_schema, &row.table_name)
-		if err != nil {
-			panic(err)
-		}
+		utils.ErrPanic(err)
 		// Check for Ghosts index table.
 		if *row.table_name == "ghost_data" && *row.table_schema == "public" {
 			hasTableGhosts = true
