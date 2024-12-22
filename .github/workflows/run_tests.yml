@@ -1,9 +1,4 @@
-on:
-    workflow_dispatch:
-    push:
-      branches:
-        - main
-    pull_request:
+on: [push, pull_request_target, workflow_dispatch]
   
 concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
