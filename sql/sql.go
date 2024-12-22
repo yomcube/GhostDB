@@ -2,6 +2,7 @@ package sql
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -25,7 +26,7 @@ type tables_data struct {
 const PATH_TO_CFG_FILE = "./sql.cfg"
 
 func writeDefaultConf(cfgFile *os.File) {
-	def_string := "# On the line below, type in the username of the postgers user\npostgres\n# On the line below, type in the client secret\npassword\n# On the line below, type in the preferred name for the database\nghostdb\n# On the line below, type in the preferred Postgres Host\nlocalhost\n# On the line below, type in the Postgres Client port\n5432"
+	def_string := "# Postgres user\npostgres\n# Client secret\npassword\n# Preferred database name\nghostdb\n# Preferred Postgres Host\nlocalhost\n# Postgres Client port\n5432"
 	n, err := cfgFile.WriteString(def_string)
 	if n != 0 && err != nil {
 		panic(err)
@@ -36,7 +37,7 @@ func SetupConfig() (Config, int) {
 	// This works fine on Linux,
 	// this software isn't really made for Windows after all.
 
-	if _, err := os.Stat(PATH_TO_CFG_FILE); os.IsNotExist(err) {
+	if _, err := os.Stat(PATH_TO_CFG_FILE); errors.Is(err, os.ErrNotExist) {
 		// If the file doesn't exist, write the default config to it.
 		cfgFile, err := os.Create(PATH_TO_CFG_FILE)
 		if err != nil {
