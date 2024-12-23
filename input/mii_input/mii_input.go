@@ -15,59 +15,59 @@ import (
 // Kaitai Struct provided by HEYimHeroic: https://mii.tools/studio/ksy/mii_data_wii.ksy
 // This gets out all of the Wii data, and should resemble the SQL table
 // Skipped bits, or `unused_xx` according to the yaml file, are junk data.
-type Mii struct { // 						Index	Len	Info
-	IsFemale             bool            //	0x00.1	0.1
-	BirthMonth           uint8           //	0x00.2	0.4
-	BirthDay             uint8           //	0x00.6	0.5
-	FavoriteColor        mii_fav_colors  //	0x01.3	0.4
-	IsFavorite           bool            //	0x01.7	0.1
-	MiiName              string          //	0x02	20	utf-16be encoded null-terminated-ish string with max 10 char.
-	Height               uint8           //	0x16.1	0.7
-	Weight               uint8           //	0x17.1	0.7
-	MiiID                uint32          //	0x18	4
-	MiiCreationTimestamp time.Time       //	0x18.4	3.4
-	ConsoleID            uint32          //	0x1C	4	the last three bytes are the last three bytes of the mac address, first byte is a checksum
-	FaceType             uint8           //	0x20	0.3
-	SkinTone             uint8           //	0x20.3	0.3	max = 5
-	FaceFeatures         uint8           //	0x20.6	0.4	max = 11
-	Mingling             bool            //	0x21.5	0.1
-	SourceType           mii_source_type //	0x21.6	0.2
-	HairType             uint8           //	0x22	0.7	max = 71
-	HairColor            uint8           //	0x22.7	0.3
-	HairFlip             bool            //	0x23.2	0.1
-	EyebrowType          uint8           //	0x24	0.5	max = 23
-	EyebrowRotation      uint8           //	0x24.5	0.5	max = 11
-	EyebrowColor         uint8           //	0x26	0.3
-	EyebrowSize          uint8           //	0x26.3	0.4 max = 8
-	EyebrowVertical      uint8           //	0x26.7	0.5	max = 18
-	EyebrowHorizontal    uint8           //	0x27.4	0.4	max = 12
-	EyeType              uint8           //	0x28	0.6	max = 47
-	EyeRotation          uint8           //	0x28.6	0.5 max = 7
-	EyeVertical          uint8           //	0x29.3	0.5	max = 18
-	EyeColor             uint8           //	0x2A	0.3	max = 5
-	EyeSize              uint8           //	0x2A.3	0.4 max = 7
-	EyeHorizontal        uint8           //	0x2A.7	0.4 max = 12
-	NoseType             uint8           //	0x2C	0.4	max = 11
-	NoseSize             uint8           //	0x2C.4	0.4	max = 8
-	NoseVertical         uint8           //	0x2D	0.5	max = 18
-	MouthType            uint8           //	0x2E	0.5	max = 23
-	MouthColor           uint8           //	0x2E.5	0.2	max = 2
-	MouthSize            uint8           //	0x2E.7	0.4	max = 8
-	MouthVertical        uint8           //	0x2F.3	0.5	max = 18
-	GlassesType          uint8           //	0x30	0.4	max = 8
-	GlassesColor         uint8           //	0x30.4	0.3	max = 5
-	GlassesSize          uint8           //	0x30.7	0.4	max = 7
-	GlassesVertical      uint8           //	0x31.3	0.5	max = 20
-	FacialHairMustache   uint8           //	0x32	0.2
-	FacialHairBeard      uint8           //	0x32.2	0.2
-	FacialHairColor      uint8           //	0x32.4	0.3
-	FacialHairSize       uint8           //	0x32.7	0.4	max = 8
-	FacialHairVertical   uint8           //	0x33.3	0.5	max = 16
-	MoleType             bool            //	0x34	0.1
-	MoleSize             uint8           //	0x34.1	0.4	max = 8
-	MoleVertical         uint8           //	0x34.5	0.5	max = 30
-	MoleHorizontal       uint8           //	0x35.2	0.5	max = 16
-	CreatorName          string          //	0x36	20	utf-16be encoded null-terminated-ish string with max 10 char.
+type Mii struct { // 												Index	Len	Info
+	IsFemale             bool            `json:"isFemale"`		//	0x00.1	0.1
+	BirthMonth           uint8           `json:"birthMonth"`	//	0x00.2	0.4
+	BirthDay             uint8           `json:"birthDay"`		//	0x00.6	0.5
+	FavoriteColor        mii_fav_colors  `json:"favColor"`		//	0x01.3	0.4
+	IsFavorite           bool            `json:"isFavorite"`	//	0x01.7	0.1
+	MiiName              string          `json:"miiName"`		//	0x02	20	utf-16be encoded null-terminated-ish string with max 10 char.
+	Height               uint8           `json:"height"`		//	0x16.1	0.7
+	Weight               uint8           `json:"weight"`		//	0x17.1	0.7
+	MiiID                uint32          `json:"miiId"`			//	0x18	4
+	MiiCreationTimestamp time.Time       `json:"created_at"`	//	0x18.4	3.4
+	ConsoleID            uint32          `json:"consoleId"`		//	0x1C	4	the last three bytes are the last three bytes of the mac address, first byte is a checksum
+	FaceType             uint8           `json:"faceType"`		//	0x20	0.3
+	SkinTone             uint8           `json:"skinTone"`		//	0x20.3	0.3	max = 5
+	FaceFeatures         uint8           `json:"faceFeatures"`	//	0x20.6	0.4	max = 11
+	Mingling             bool            `json:"mingling"`		//	0x21.5	0.1
+	SourceType           mii_source_type `json:"sourceType"`	//	0x21.6	0.2
+	HairType             uint8           `json:"hairType"`		//	0x22	0.7	max = 71
+	HairColor            uint8           `json:"hairCol"`		//	0x22.7	0.3
+	HairFlip             bool            `json:"hairFlip"`		//	0x23.2	0.1
+	EyebrowType          uint8           `json:"browType"`		//	0x24	0.5	max = 23
+	EyebrowRotation      uint8           `json:"browRot"`		//	0x24.5	0.5	max = 11
+	EyebrowColor         uint8           `json:"browCol"`		//	0x26	0.3
+	EyebrowSize          uint8           `json:"browSize"`		//	0x26.3	0.4 max = 8
+	EyebrowVertical      uint8           `json:"browVer"`		//	0x26.7	0.5	max = 18
+	EyebrowHorizontal    uint8           `json:"browHor"`		//	0x27.4	0.4	max = 12
+	EyeType              uint8           `json:"eyeType"`		//	0x28	0.6	max = 47
+	EyeRotation          uint8           `json:"eyeRot"`		//	0x28.6	0.5 max = 7
+	EyeVertical          uint8           `json:"eyeVer"`		//	0x29.3	0.5	max = 18
+	EyeColor             uint8           `json:"eyeCol"`		//	0x2A	0.3	max = 5
+	EyeSize              uint8           `json:"eyeSize"`		//	0x2A.3	0.4 max = 7
+	EyeHorizontal        uint8           `json:"eyeHor"`		//	0x2A.7	0.4 max = 12
+	NoseType             uint8           `json:"noseType"`		//	0x2C	0.4	max = 11
+	NoseSize             uint8           `json:"noseSize"`		//	0x2C.4	0.4	max = 8
+	NoseVertical         uint8           `json:"noseVer"`		//	0x2D	0.5	max = 18
+	MouthType            uint8           `json:"mouthType"`		//	0x2E	0.5	max = 23
+	MouthColor           uint8           `json:"mouthCol"`		//	0x2E.5	0.2	max = 2
+	MouthSize            uint8           `json:"mouthSize"`		//	0x2E.7	0.4	max = 8
+	MouthVertical        uint8           `json:"mouthVer"`		//	0x2F.3	0.5	max = 18
+	GlassesType          uint8           `json:"glassesType"`	//	0x30	0.4	max = 8
+	GlassesColor         uint8           `json:"glassesCol"`	//	0x30.4	0.3	max = 5
+	GlassesSize          uint8           `json:"glassesSize"`	//	0x30.7	0.4	max = 7
+	GlassesVertical      uint8           `json:"glassesVer"`	//	0x31.3	0.5	max = 20
+	FacialHairMustache   uint8           `json:"fHairMustache"`	//	0x32	0.2
+	FacialHairBeard      uint8           `json:"fHairBeard"`	//	0x32.2	0.2
+	FacialHairColor      uint8           `json:"fHairCol"`		//	0x32.4	0.3
+	FacialHairSize       uint8           `json:"fHairSize"`		//	0x32.7	0.4	max = 8
+	FacialHairVertical   uint8           `json:"fHairVer"`		//	0x33.3	0.5	max = 16
+	MoleType             bool            `json:"moleType"`		//	0x34	0.1
+	MoleSize             uint8           `json:"moleSize"`		//	0x34.1	0.4	max = 8
+	MoleVertical         uint8           `json:"moleVer"`		//	0x34.5	0.5	max = 30
+	MoleHorizontal       uint8           `json:"moleHor"`		//	0x35.2	0.5	max = 16
+	CreatorName          string          `json:"creatorName"`	//	0x36	20	utf-16be encoded null-terminated-ish string with max 10 char.
 }
 
 func (mii *Mii) SetBirth(month byte, day byte) error {

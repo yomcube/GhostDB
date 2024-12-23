@@ -17,15 +17,15 @@ var CKGDMagicNumbers = [...]byte{0x43, 0x4B, 0x47, 0x44}
 // There is no need to decode to an "RKGD" type, it would be pointless.
 // Though this was to be decided yet, so any data here is temporary
 type Time struct {
-	CourseSlot  common.CourseID // This will have, in the future, to be handled for CTs.
-	FinalTime   int32
-	Laps        [10]int32 // max number of laps possible to write on file
-	Vehicle     common.VehicleID
-	Character   common.CharacterID
-	Controller  common.ControllerID
-	AutoDrift   bool
-	CountryCode common.CountryCode
-	StateCode   uint8
+	CourseSlot  common.CourseID     `json:"courseId"` // This will have, in the future, to be handled for CTs.
+	FinalTime   int32               `json:"finalTime"`
+	Laps        [10]int32           `json:"laps"` // max number of laps possible to write on file
+	Vehicle     common.VehicleID    `json:"vehicle"`
+	Character   common.CharacterID  `json:"character"`
+	Controller  common.ControllerID `json:"controller"`
+	AutoDrift   bool                `json:"autoDrift"`
+	CountryCode common.CountryCode  `json:"countryCode"`
+	StateCode   uint8               `json:"stateCode"`
 }
 
 func (outputTime *Time) setStateCode(inputByte uint8) error {

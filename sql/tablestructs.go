@@ -10,29 +10,29 @@ import (
 type uuid [16]uint8
 
 type SQLGhost struct {
-	UUID uuid
-	PlayerID uuid
-	MiiID uuid
-	Date time.Time
-	IsCT bool
-	CourseID common.CourseID
-	CharacterID common.CharacterID
-	VehicleID common.VehicleID
-	FinishTime uint32 // Total milliseconds
-	Controller common.ControllerID
+	UUID        uuid                `json:"uuid"`
+	PlayerID    uuid                `json:"player_id"`
+	MiiID       uuid                `json:"mii_id"`
+	Date        time.Time           `json:"date_set"`
+	IsCT        bool                `json:"custom_track"`
+	CourseID    common.CourseID     `json:"track_id"`
+	CharacterID common.CharacterID  `json:"character_id"`
+	VehicleID   common.VehicleID    `json:"vehicle_id"`
+	FinishTime  uint32              `json:"finish_time"` // Total milliseconds
+	Controller  common.ControllerID `json:"controller"`
 }
 
 type SQLPlayer struct {
-	UUID uuid
-	PlayerName string
-	MiiIDs []uuid
-	RegionID common.CountryCode
-	ProvinceID byte
-	LastModified time.Time
+	UUID         uuid               `json:"uuid"`
+	PlayerName   string             `json:"player_name"`
+	MiiIDs       []uuid             `json:"mii_ids_array"`
+	RegionID     common.CountryCode `json:"region"`
+	ProvinceID   byte               `json:"province"`
+	LastModified time.Time          `json:"last_modified"`
 }
 
 type SQLMii struct {
-	UUID uuid
-	Mii mii_input.Mii
-	RenderStr string
+	UUID      uuid          `json:"uuid"`
+	Mii       mii_input.Mii `json:"mii"`
+	RenderStr string        `json:"render_string"`
 }
