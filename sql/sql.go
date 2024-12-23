@@ -62,7 +62,22 @@ func SetupConfig() (Config, int) {
 }
 
 func setupGhostIndexTable(db *sql.DB) {
-	// Code to create table here, structs haven't been completely decided
+	_, err := db.Query(`
+		CREATE TABLE public.ghosts (
+			uuid uuid NOT NULL DEFAULT gen_random_uuid (),
+			player_id uuid NOT NULL,
+			mii_id uuid NOT NULL,
+			date_set date NOT NULL,
+			custom_track boolean NOT NULL,
+			track_id character(1) NOT NULL,` /*Vanilla Tracks*/ + `
+			track_uuid uuid NOT NULL,` /*CTs*/ + `
+			character_id character(1) NOT NULL,
+			vehicle_id character(1) NOT NULL,
+			finish_time int NOT NULL,
+			controller character(1) NOT NULL,
+			crc32 int NOT NULL,
+		);
+	`)
 }
 
 func setupPlayerTable(db *sql.DB) {
