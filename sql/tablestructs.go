@@ -13,9 +13,8 @@ type SQLGhost struct {
 	UUID        uuid                `json:"uuid"`
 	PlayerID    uuid                `json:"player_id"`
 	MiiID       uuid                `json:"mii_id"`
+	TrackUUID   uuid                `json:"track_uuid"`
 	Date        time.Time           `json:"date_set"`
-	IsCT        bool                `json:"custom_track"`
-	CourseID    common.CourseID     `json:"track_id"`
 	CharacterID common.CharacterID  `json:"character_id"`
 	VehicleID   common.VehicleID    `json:"vehicle_id"`
 	FinishTime  uint32              `json:"finish_time"` // Total milliseconds
