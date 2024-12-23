@@ -15,7 +15,8 @@ func main() {
 	fmt.Println("Setting up database...")
 	cfg, exit_code := sql.SetupConfig()
 	if exit_code == 1 {
-		panic("Postgres DB could not be set up!")
+		fmt.Println("DB config does not exist! Creating default config and exiting...")
+		return
 	}
 	cfg.SetupDatabase()
 
