@@ -69,8 +69,8 @@ func setupGhostIndexTable(db *sql.DB) {
 			mii_id uuid NOT NULL,
 			date_set date NOT NULL,
 			custom_track boolean NOT NULL,
-			track_id character(1) NOT NULL,` /*Vanilla Tracks*/ + `
-			track_uuid uuid NOT NULL,` /*CTs*/ + `
+			track_id character(1) NOT NULL,
+			track_uuid uuid,` /*CTs*/ + `
 			character_id character(1) NOT NULL,
 			vehicle_id character(1) NOT NULL,
 			finish_time int NOT NULL,
