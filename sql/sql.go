@@ -75,9 +75,10 @@ func setupGhostIndexTable(db *sql.DB) {
 			vehicle_id character(1) NOT NULL,
 			finish_time int NOT NULL,
 			controller character(1) NOT NULL,
-			crc32 int NOT NULL,
+			crc32 int NOT NULL
 		);
 	`)
+	utils.ErrPanic(err)
 }
 
 func setupPlayerTable(db *sql.DB) {
@@ -91,7 +92,6 @@ func setupPlayerTable(db *sql.DB) {
 			last_modified timestamp without time zone NOT NULL
 		);
 	`)
-
 	utils.ErrPanic(err)
 }
 
@@ -151,7 +151,6 @@ func setupMiiTable(db *sql.DB) {
 			render_str character(94) NOT NULL
 		);
 	`)
-
 	utils.ErrPanic(err)
 }
 
