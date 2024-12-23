@@ -142,6 +142,7 @@ func setupMiiTable(db *sql.DB) {
 
 func (cfg Config) SetupDatabase() {
 	db, err := sql.Open("postgres", fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable", cfg.user, cfg.secret, cfg.host, cfg.port, cfg.databaseName))
+	utils.ErrPanic(err)
 	defer db.Close()
 
 	err = db.Ping()
@@ -153,6 +154,7 @@ func (cfg Config) SetupDatabase() {
 
 	// Check if the correct tables exist
 	tables, err := db.Query("SELECT table_schema, table_name FROM information_schema.tables WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('pg_catalog', 'information_schema');")
+	utils.ErrPanic(err)
 	err = db.Ping()
 	utils.ErrPanic(err)
 

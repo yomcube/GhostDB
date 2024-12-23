@@ -81,12 +81,12 @@ func (mii *Mii) SetBirth(month byte, day byte) error {
 		fallthrough
 	case 4, 6, 9, 11:
 		if day > 30 {
-			return errors.New(fmt.Sprintf("%s has at most 30 days", strings.ToLower(mii_birthmonth(month).ToString())))
+			return fmt.Errorf("%s has at most 30 days", strings.ToLower(mii_birthmonth(month).ToString()))
 		}
 		fallthrough
 	case 1, 3, 5, 7, 8, 10, 12:
 		if day > 31 {
-			return errors.New(fmt.Sprintf("%s has at most 30 days", strings.ToLower(mii_birthmonth(month).ToString())))
+			return fmt.Errorf("%s has at most 30 days", strings.ToLower(mii_birthmonth(month).ToString()))
 		}
 	}
 	mii.BirthMonth = month
