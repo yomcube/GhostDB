@@ -62,7 +62,7 @@ func SetupConfig() (Config, int) {
 }
 
 func setupGhostIndexTable(db *sql.DB) {
-	_, err := db.Query(`
+	_, err := db.Exec(`
 		CREATE TABLE public.ghosts (
 			uuid uuid NOT NULL DEFAULT gen_random_uuid (),
 			player_id uuid NOT NULL,
@@ -80,7 +80,7 @@ func setupGhostIndexTable(db *sql.DB) {
 }
 
 func setupPlayerTable(db *sql.DB) {
-	_, err := db.Query(`
+	_, err := db.Exec(`
 		CREATE TABLE public.players (
 			uuid uuid NOT NULL DEFAULT gen_random_uuid (),
 			player_name character varying(30) NOT NULL,
@@ -94,7 +94,7 @@ func setupPlayerTable(db *sql.DB) {
 }
 
 func setupMiiTable(db *sql.DB) {
-	_, err := db.Query(`
+	_, err := db.Exec(`
 		CREATE TABLE public.miis (
 			uuid uuid NOT NULL DEFAULT gen_random_uuid (),
 			is_girl bool NOT NULL,
@@ -175,7 +175,7 @@ func (cfg Config) SetupDatabase() {
 		err := tables.Scan(&row.table_schema, &row.table_name)
 		utils.ErrPanic(err)
 		// Check for Ghosts index table.
-		if *row.table_name == "ghost_data" && *row.table_schema == "public" {
+		if *row.table_name == "ghosts" && *row.table_schema == "public" {
 			hasTableGhosts = true
 		}
 		if *row.table_name == "players" && *row.table_schema == "public" {
