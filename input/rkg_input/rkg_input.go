@@ -50,9 +50,9 @@ func InitializeFromRKGFile(inputBytes []byte) (Time, error) {
 	outputTime.CourseSlot = common.CourseID(inputBytes[7] >> 2)
 	outputTime.FinalTime = readTimeFromRKGFormat([3]byte(inputBytes[4:]))
 	outputTime.Vehicle = common.VehicleID(inputBytes[8] >> 2)
-	outputTime.Character = common.CharacterID(((inputBytes[8] & 0b00000011) << 4) | (inputBytes[9] >> 4))
-	outputTime.Controller = common.ControllerID(inputBytes[0xB] & 0b00001111)
-	outputTime.AutoDrift = (inputBytes[0xB] & 0b00001000) != 0b000000000
+	outputTime.Character = common.CharacterID(((inputBytes[8] & 0x3) << 4) | (inputBytes[9] >> 4))
+	outputTime.Controller = common.ControllerID(inputBytes[0xB] & 0xF)
+	outputTime.AutoDrift = (inputBytes[0xB] & 0x8) != 0
 	outputTime.CountryCode = common.CountryCode(inputBytes[0x34])
 
 	err := outputTime.setStateCode(inputBytes[0x35])
@@ -99,7 +99,7 @@ func readTimeFromRKGFormat(inputBytes [3]byte) int32 {
 	seconds := int32(inputBytes[1] >> 2)
 
 	// I don't think these casts might be faster than just doing OR on a int32
-	milliseconds := int32(((int16(inputBytes[1]) & 0b00000011) << 8) | int16(inputBytes[2]))
+	milliseconds := int32(((int16(inputBytes[1]) & 0x3) << 8) | int16(inputBytes[2]))
 
 	// (Minutes * 60000) + (Seconds * 1000) + Milliseconds =
 	// = (2*Minutes * 30000) + (Seconds * 1000) + Milliseconds

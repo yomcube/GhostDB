@@ -137,7 +137,7 @@ func (mii *Mii) SetCreatorNameFromUTF16BEBytes(creatorName [20]byte) error {
 }
 
 func max7bits(n byte) byte {
-	return (n & 0b01111111)
+	return (n & 0x7F)
 }
 
 func (mii *Mii) SetHeight(height byte) {
@@ -523,17 +523,17 @@ func (mii *Mii) GenerateMiiStudioRenderString() string {
 func InitializeFromMiigx(inputBytes []byte) (Mii, error) {
 	outMii := Mii{}
 
-	outMii.IsFemale = ((inputBytes[0x00] >> 6) & 0b00000001) > 0
+	outMii.IsFemale = ((inputBytes[0x00] >> 6) & 0x1) > 0
 
-	if err := outMii.SetBirth((inputBytes[0x00]>>2)&0b00001111, ((inputBytes[0x00]<<6)|(inputBytes[0x01]>>2))>>3); err != nil {
+	if err := outMii.SetBirth((inputBytes[0x00]>>2)&0xF, ((inputBytes[0x00]<<6)|(inputBytes[0x01]>>2))>>3); err != nil {
 		return outMii, err
 	}
 
-	if err := outMii.SetFavoriteColor((inputBytes[0x01] >> 1) & 0b00001111); err != nil {
+	if err := outMii.SetFavoriteColor((inputBytes[0x01] >> 1) & 0xF); err != nil {
 		return outMii, err
 	}
 
-	outMii.IsFavorite = (inputBytes[0x01] & 0b00000001) > 0
+	outMii.IsFavorite = (inputBytes[0x01] & 0x1) > 0
 
 	if err := outMii.SetNameFromUTF16BEBytes([20]byte(inputBytes[0x02:])); err != nil {
 		return outMii, err
@@ -545,41 +545,41 @@ func InitializeFromMiigx(inputBytes []byte) (Mii, error) {
 	outMii.MiiCreationTimestamp = time.Unix(1136073600+int64((outMii.MiiID<<4)>>2), 0)
 	outMii.ConsoleID = uint32(inputBytes[0x1C])<<24 | uint32(inputBytes[0x1D])<<16 | uint32(inputBytes[0x1E])<<8 | uint32(inputBytes[0x1F])
 	outMii.FaceType = inputBytes[0x20] >> 5
-	outMii.SkinTone = (inputBytes[0x20] >> 2) & 0b00000111
+	outMii.SkinTone = (inputBytes[0x20] >> 2) & 0x7
 
-	if err := outMii.SetFaceFeatures(((inputBytes[0x20] << 2) | (inputBytes[0x21] >> 6)) & 0b00001111); err != nil {
+	if err := outMii.SetFaceFeatures(((inputBytes[0x20] << 2) | (inputBytes[0x21] >> 6)) & 0xF); err != nil {
 		return outMii, err
 	}
 
-	outMii.Mingling = (inputBytes[0x21] & 0b00000100) > 0
-	outMii.SourceType = mii_source_type(inputBytes[0x21] & 0b00000011)
+	outMii.Mingling = (inputBytes[0x21] & 0x4) > 0
+	outMii.SourceType = mii_source_type(inputBytes[0x21] & 0x3)
 
 	if err := outMii.SetHairType(inputBytes[0x22] >> 1); err != nil {
 		return outMii, err
 	}
 
-	outMii.HairColor = ((inputBytes[0x22] << 2) | (inputBytes[0x23] >> 6)) & 0b00000111
-	outMii.HairFlip = (inputBytes[0x23] & 0b00100000) > 0
+	outMii.HairColor = ((inputBytes[0x22] << 2) | (inputBytes[0x23] >> 6)) & 0x7
+	outMii.HairFlip = (inputBytes[0x23] & 0x20) > 0
 
 	if err := outMii.SetEyebrowType(inputBytes[0x24] >> 3); err != nil {
 		return outMii, err
 	}
 
-	if err := outMii.SetEyebrowRotation(((inputBytes[0x24] << 2) | (inputBytes[0x25] >> 6)) & 0b00001111); err != nil {
+	if err := outMii.SetEyebrowRotation(((inputBytes[0x24] << 2) | (inputBytes[0x25] >> 6)) & 0xF); err != nil {
 		return outMii, err
 	}
 
 	outMii.EyebrowColor = inputBytes[0x26] >> 5
 
-	if err := outMii.SetEyebrowSize((inputBytes[0x26] >> 1) & 0b00001111); err != nil {
+	if err := outMii.SetEyebrowSize((inputBytes[0x26] >> 1) & 0xF); err != nil {
 		return outMii, err
 	}
 
-	if err := outMii.SetEyebrowVertical(((inputBytes[0x26] << 4) | (inputBytes[0x27] >> 4)) & 0b00011111); err != nil {
+	if err := outMii.SetEyebrowVertical(((inputBytes[0x26] << 4) | (inputBytes[0x27] >> 4)) & 0x1F); err != nil {
 		return outMii, err
 	}
 
-	if err := outMii.SetEyebrowHorizontal(inputBytes[0x27] & 0b00001111); err != nil {
+	if err := outMii.SetEyebrowHorizontal(inputBytes[0x27] & 0xF); err != nil {
 		return outMii, err
 	}
 
@@ -589,7 +589,7 @@ func InitializeFromMiigx(inputBytes []byte) (Mii, error) {
 
 	outMii.EyeRotation = inputBytes[0x29] >> 5
 
-	if err := outMii.SetEyeVertical(inputBytes[0x29] & 0b00001111); err != nil {
+	if err := outMii.SetEyeVertical(inputBytes[0x29] & 0xF); err != nil {
 		return outMii, err
 	}
 
@@ -597,9 +597,9 @@ func InitializeFromMiigx(inputBytes []byte) (Mii, error) {
 		return outMii, err
 	}
 
-	outMii.EyeSize = (inputBytes[0x2A] >> 1) & 0b00000111
+	outMii.EyeSize = (inputBytes[0x2A] >> 1) & 0x7
 
-	if err := outMii.SetEyeHorizontal(((inputBytes[0x2A] << 3) | (inputBytes[0x2B] >> 5)) & 0b00001111); err != nil {
+	if err := outMii.SetEyeHorizontal(((inputBytes[0x2A] << 3) | (inputBytes[0x2B] >> 5)) & 0xF); err != nil {
 		return outMii, err
 	}
 
@@ -607,7 +607,7 @@ func InitializeFromMiigx(inputBytes []byte) (Mii, error) {
 		return outMii, err
 	}
 
-	if err := outMii.SetNoseSize(inputBytes[0x2C] & 0b00001111); err != nil {
+	if err := outMii.SetNoseSize(inputBytes[0x2C] & 0xF); err != nil {
 		return outMii, err
 	}
 
@@ -619,16 +619,16 @@ func InitializeFromMiigx(inputBytes []byte) (Mii, error) {
 		return outMii, err
 	}
 
-	if err := outMii.SetMouthColor((inputBytes[0x2E] >> 1) & 0b00000011); err != nil {
+	if err := outMii.SetMouthColor((inputBytes[0x2E] >> 1) & 0x3); err != nil {
 
 		return outMii, err
 	}
 
-	if err := outMii.SetMouthSize(((inputBytes[0x2E] << 3) | (inputBytes[0x2F] >> 5)) & 0b00001111); err != nil {
+	if err := outMii.SetMouthSize(((inputBytes[0x2E] << 3) | (inputBytes[0x2F] >> 5)) & 0xF); err != nil {
 		return outMii, err
 	}
 
-	if err := outMii.SetMouthVertical(inputBytes[0x2F] & 0b00011111); err != nil {
+	if err := outMii.SetMouthVertical(inputBytes[0x2F] & 0x1F); err != nil {
 		return outMii, err
 	}
 
@@ -636,39 +636,39 @@ func InitializeFromMiigx(inputBytes []byte) (Mii, error) {
 		return outMii, err
 	}
 
-	if err := outMii.SetGlassesColor((inputBytes[0x30] >> 1) & 0b00000111); err != nil {
+	if err := outMii.SetGlassesColor((inputBytes[0x30] >> 1) & 0x7); err != nil {
 		return outMii, err
 	}
 
-	outMii.GlassesSize = ((inputBytes[0x30] << 3) | (inputBytes[0x31] >> 5)) & 0b00001111
+	outMii.GlassesSize = ((inputBytes[0x30] << 3) | (inputBytes[0x31] >> 5)) & 0xF
 
-	if err := outMii.SetGlassesVertical(inputBytes[0x31] & 0b00011111); err != nil {
+	if err := outMii.SetGlassesVertical(inputBytes[0x31] & 0x1F); err != nil {
 		return outMii, err
 	}
 
 	outMii.FacialHairMustache = inputBytes[0x32] >> 6
-	outMii.FacialHairBeard = (inputBytes[0x32] >> 4) & 0b00000011
-	outMii.FacialHairColor = (inputBytes[0x32] >> 1) & 0b00000111
+	outMii.FacialHairBeard = (inputBytes[0x32] >> 4) & 0x3
+	outMii.FacialHairColor = (inputBytes[0x32] >> 1) & 0x7
 
-	if err := outMii.SetFacialHairSize(((inputBytes[0x32] << 3) | (inputBytes[0x33] >> 5)) & 0b00001111); err != nil {
+	if err := outMii.SetFacialHairSize(((inputBytes[0x32] << 3) | (inputBytes[0x33] >> 5)) & 0xF); err != nil {
 		return outMii, err
 	}
 
-	if err := outMii.SetFacialHairVertical(inputBytes[0x33] & 0b00011111); err != nil {
+	if err := outMii.SetFacialHairVertical(inputBytes[0x33] & 0x1F); err != nil {
 		return outMii, err
 	}
 
 	outMii.MoleType = (inputBytes[0x34] >> 7) > 0
 
-	if err := outMii.SetMoleSize((inputBytes[0x34] >> 3) & 0b00001111); err != nil {
+	if err := outMii.SetMoleSize((inputBytes[0x34] >> 3) & 0xF); err != nil {
 		return outMii, err
 	}
 
-	if err := outMii.SetMoleVertical(((inputBytes[0x34] << 2) | (inputBytes[0x35] >> 6)) & 0b00011111); err != nil {
+	if err := outMii.SetMoleVertical(((inputBytes[0x34] << 2) | (inputBytes[0x35] >> 6)) & 0x1F); err != nil {
 		return outMii, err
 	}
 
-	if err := outMii.SetMoleHorizontal((inputBytes[0x35] >> 1) & 0b00011111); err != nil {
+	if err := outMii.SetMoleHorizontal((inputBytes[0x35] >> 1) & 0x1F); err != nil {
 		return outMii, err
 	}
 
